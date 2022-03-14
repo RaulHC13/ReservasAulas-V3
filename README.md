@@ -6,7 +6,7 @@ Desde el IES Al-Ándalus nos acaban de comentar que por favor añadamos persiste
 
 El diagrama de clases queda como te muestro a continuación y poco a poco te iré explicando los diferentes pasos a realizar:
 
-![Diagrama de clases para reservasaulas](ReservasAlumnos-V3/resources/reservasAulas.png)
+![Diagrama de clases para reservasaulas](ReservasAulas-V3/resources/reservasAulas.png)
 
 Por tanto, tu tarea va a consistir en completar los siguientes apartados:
 
@@ -28,3 +28,4 @@ Por tanto, tu tarea va a consistir en completar los siguientes apartados:
 - El proyecto debe pasar todas las pruebas que van en el esqueleto del mismo y toda entrada del programa será validada para evitar que el programa termine abruptamente debido a una excepción.
 - Se deben utilizar los comentarios adecuados.
 - Se valorará la corrección ortográfica tanto en los comentarios como en los mensajes que se muestren al usuario.
+
