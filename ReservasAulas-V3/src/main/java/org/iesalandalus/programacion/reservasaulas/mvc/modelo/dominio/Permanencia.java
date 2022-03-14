@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 
 
 public abstract class Permanencia implements Serializable{//Clase abstracta por lo que no se puede instanciar.
-	
+	//Implementa la interfaz Serializable
 	private LocalDate dia;
 	protected static final DateTimeFormatter FORMATO_DIA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	

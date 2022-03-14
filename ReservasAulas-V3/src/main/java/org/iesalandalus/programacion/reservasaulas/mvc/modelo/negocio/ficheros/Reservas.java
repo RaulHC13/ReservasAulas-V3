@@ -1,5 +1,13 @@
 package org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.ficheros;
 
+import java.io.EOFException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -18,6 +26,8 @@ import org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.IReservas;
 
 public class Reservas implements IReservas {
 	
+	private static final String NOMBRE_FICHERO_RESERVAS = "fichero/reservas.dat";
+	
 	private static final float MAX_PUNTOS_PROFESOR_MES = (float) 200.0;
 	private List<Reserva> coleccionReservas;
 	
@@ -30,6 +40,67 @@ public class Reservas implements IReservas {
 			throw new NullPointerException("ERROR: No se pueden copiar reservas nulas");
 		}
 		setReservas(reservas);
+	}
+	
+	@Override
+	public void comenzar() {
+		leer();
+	}
+	
+	private void leer() {
+		File reservas = new File(NOMBRE_FICHERO_RESERVAS);
+		
+		try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(reservas))){
+			//ObjectOutputStream FileInputStream para entrada de objetos
+			Reserva reserva = null;
+			
+			do {
+				
+				reserva = (Reserva) in.readObject();//Para que lea el tipo de objeto hay que castear
+				
+				try {
+					insertar(reserva);
+				} catch (OperationNotSupportedException e) {
+					e.printStackTrace();
+				}
+				
+			} while(reserva != null);
+			
+			in.close();//Se cierra el flujo
+			
+		} catch (FileNotFoundException e) {
+			System.out.println(e.getMessage());	
+		} catch (EOFException e) {
+			System.out.println(e.getMessage());	
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		} catch (ClassNotFoundException e) {
+			System.out.println(e.getMessage());
+		}
+		
+	}
+	
+	@Override
+	public void terminar() {
+		escribir();
+	}
+	
+	private void escribir() {
+		File reservas = new File(NOMBRE_FICHERO_RESERVAS);
+		
+		try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(reservas))){
+			//ObjectOutputStream FileOutputStream para salida
+			for (Reserva reserva : coleccionReservas) {
+				out.writeObject(reserva);
+			}//Se recorre la lista y se escriben todos los objetos de esta
+			out.close();
+			
+		} catch (FileNotFoundException e) {
+			e.getMessage();
+		} catch (IOException e) {
+			e.getMessage();
+		}
+		
 	}
 	
 	private void setReservas(IReservas reservas) {

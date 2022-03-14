@@ -5,7 +5,7 @@ import org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.IAulas;
 import org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.IProfesores;
 import org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.IReservas;
 
-public class FactoriaFuenteDatosMemoria implements IFuenteDatos {
+public class FactoriaFuenteDatosFicheros implements IFuenteDatos {
 	
 	//Esta clase crea las clases Aulas Profesores y reservas
 	

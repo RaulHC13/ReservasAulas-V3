@@ -12,7 +12,7 @@ public class MainApp {
 
 public static void main(String[] args) {
 		
-		IModelo modelo = new Modelo(FactoriaFuenteDatos.MEMORIA.crear());//Crea un modelo con parametro
+		IModelo modelo = new Modelo(FactoriaFuenteDatos.FICHEROS.crear());//Crea un modelo con ficheros.
 		//objeto de tipo FactoriaFuenteDatosMemoria.
 		IVista vista = new Vista();
 		IControlador controlador = new Controlador(modelo,vista);

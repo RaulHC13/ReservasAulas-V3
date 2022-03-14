@@ -1,14 +1,19 @@
 package org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.ficheros;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+
 import javax.naming.OperationNotSupportedException;
+
 import org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio.Aula;
 import org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.IAulas;
 
 public class Aulas implements IAulas {
+	
+	private static final String NOMBRE_FICHERO_AULAS = "fichero/aulas.dat"; //Fichero dat donde se guardan las aulas.
 	
 	private List<Aula> coleccionAulas; //Se declara la lista
 	
@@ -18,6 +23,67 @@ public class Aulas implements IAulas {
 	
 	public Aulas(Aulas aulas) {
 		setAulas(aulas);
+	}
+	
+	@Override
+	public void comenzar() {
+		leer();
+	}
+	
+	private void leer() {
+		File aulas = new File(NOMBRE_FICHERO_AULAS);
+		
+		try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(aulas))){
+			//ObjectOutputStream FileInputStream para entrada de objetos
+			Aula aula = null;
+			
+			do {
+				
+				aula = (Aula) in.readObject();//Para que lea el tipo de objeto hay que castear Aula
+				
+				try {
+					insertar(aula);
+				} catch (OperationNotSupportedException e) {
+					e.printStackTrace();
+				}
+				
+			} while(aula != null);
+			
+			in.close();//Se cierra el flujo
+			
+		} catch (FileNotFoundException e) {
+			System.out.println(e.getMessage());	
+		} catch (EOFException e) {
+			System.out.println(e.getMessage());	
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		} catch (ClassNotFoundException e) {
+			System.out.println(e.getMessage());
+		}
+		
+	}
+	
+	@Override
+	public void terminar() {
+		escribir();
+	}
+	
+	private void escribir() {
+		File aulas = new File(NOMBRE_FICHERO_AULAS);
+		
+		try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(aulas))){
+			//ObjectOutputStream FileOutputStream para salida
+			for (Aula aula : coleccionAulas) {
+				out.writeObject(aula);
+			}//Se recorre la lista y se escriben todos los objetos de esta
+			out.close();
+			
+		} catch (FileNotFoundException e) {
+			e.getMessage();
+		} catch (IOException e) {
+			e.getMessage();
+		}
+		
 	}
 	
 	private void setAulas(Aulas aulas) {
