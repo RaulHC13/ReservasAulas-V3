@@ -1,10 +1,11 @@
 package org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 
-public abstract class Permanencia {//Clase abstracta por lo que no se puede instanciar.
+public abstract class Permanencia implements Serializable{//Clase abstracta por lo que no se puede instanciar.
 	
 	private LocalDate dia;
 	protected static final DateTimeFormatter FORMATO_DIA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
