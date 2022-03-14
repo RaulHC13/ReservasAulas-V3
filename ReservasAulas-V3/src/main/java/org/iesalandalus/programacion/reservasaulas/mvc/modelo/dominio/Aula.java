@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 
-public class Aula implements Serializable{
+public class Aula implements Serializable{//Implementa la interfaz Serializable
 	
 	private static final float PUNTOS_POR_PUESTO = (float) 0.5;
 	private static final int MIN_PUESTOS = 10;
